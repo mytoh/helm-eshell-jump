@@ -14,7 +14,7 @@
         (helm-eshell-jump-last-dir-create-candidates)))
 
 (cl-defun helm-eshell-jump-last-dir-create-candidates ()
-  (cl-letf ((orig (cddr eshell-last-dir-ring)))
+  (cl-letf ((orig (seq-remove #'null (cddr eshell-last-dir-ring))))
     (seq-map
      #'identity
      orig)))
