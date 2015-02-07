@@ -50,7 +50,14 @@
 (cl-defun helm-eshell-jump-create-candidates ()
   (cl-letf ((orig helm-eshell-jump-directories))
     (seq-map
-     #'identity
+     (lambda (entry)
+       (if (listp entry)
+           (cons (format
+                  "%s %s"
+                  (car entry)
+                  (expand-file-name (cdr entry)))
+                 (expand-file-name (cdr entry)))
+         (expand-file-name entry)))
      orig)))
 
 (defclass helm-eshell-jump-source (helm-source-sync)
