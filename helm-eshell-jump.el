@@ -2,8 +2,7 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'cl-lib))
+(require 'cl-lib)
 (require 'seq)
 (require 'helm)
 
@@ -70,6 +69,15 @@
 (defvar helm-source-eshell-jump
   (helm-make-source "Directories"
       'helm-eshell-jump-source))
+
+(cl-defun helm-eshell-jump-add-subdirectories (path)
+  (cl-letf* ((files (directory-files (expand-file-name path) t "[.][^.]+\\|^[^.].*"))
+             (subs (cl-member-if (lambda (f) (file-directory-p f)) files))
+             (dirs (seq-map (lambda (d) (cons (file-name-base d) d)) subs)))
+    (seq-each
+     (lambda (x)
+       (cl-pushnew x helm-eshell-jump-directories))
+     dirs)))
 
 ;;;###autoload
 (cl-defun helm-eshell-jump-add-directory (dir)
