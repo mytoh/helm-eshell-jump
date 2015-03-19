@@ -53,9 +53,9 @@
        (if (listp entry)
            (cons (format
                   "%s %s"
-                  (car entry)
-                  (expand-file-name (cdr entry)))
-                 (expand-file-name (cdr entry)))
+                  (cl-first entry)
+                  (expand-file-name (cl-rest entry)))
+                 (expand-file-name (cl-rest entry)))
          (expand-file-name entry)))
      orig)))
 
