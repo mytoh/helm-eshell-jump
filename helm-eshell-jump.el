@@ -38,7 +38,7 @@
 (defcustom helm-eshell-jump-directories
   `(("Home" . "~/")
     (".emacs.d" . ,user-emacs-directory))
-  "Directories to jump")
+  "Directories to jump.")
 
 (defvar helm-eshell-jump-candidates nil)
 
